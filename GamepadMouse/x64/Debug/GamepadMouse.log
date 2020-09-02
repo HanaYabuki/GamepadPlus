@@ -1,0 +1,7 @@
+﻿  GamepadController.cpp
+d:\github\gamepadmouse\gamepadmouse\gamepadcontroller.cpp(23): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\github\gamepadmouse\gamepadmouse\gamepadcontroller.cpp(24): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+  main.cpp
+  MouseController.cpp
+  正在生成代码...
+  GamepadMouse.vcxproj -> D:\GitHub\GamepadMouse\x64\Debug\GamepadMouse.exe
