@@ -1,9 +1,0 @@
-﻿  GamepadController.cpp
-c:\users\18471\source\repos\gamepadmouse\gamepadmouse\gamepadcontroller.cpp(23): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-c:\users\18471\source\repos\gamepadmouse\gamepadmouse\gamepadcontroller.cpp(24): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-  main.cpp
-  MouseController.cpp
-  正在生成代码
-  All 897 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  已完成代码的生成
-  GamepadMouse.vcxproj -> C:\Users\18471\source\repos\GamepadMouse\x64\Release\GamepadMouse.exe
