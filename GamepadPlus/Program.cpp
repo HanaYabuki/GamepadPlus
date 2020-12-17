@@ -1,48 +1,65 @@
 #include "GlobalConfig.h"
 #include "GamepadMapper.h"
 #include "MouseController.h"
+#include "KeyboardController.h"
 
 #include <iostream>
-#include <future>
+#include <Windows.h>
 
 GamepadMapper gamepad;
 MouseController mouse;
+KeyboardController keyboard;
 int speed;
+int dpad;
 
-int step() {
-	gamepad.updateAllKey();
+int xyToDir(int x, int y) {
+	double rad = atan2(y, x);
+	return ((int)(rad * 180 / 3.141592653589793) + 360) % 360;
+}
+
+int mouseStep() {
 	mouse.systemMouseSet();
 	mouse.mouseClick(
-		gamepad.getButtonState(A),
-		gamepad.getButtonState(B),
-		gamepad.getButtonState(X),
-		(gamepad.getZPos() - 32767) / 4096 * speed
+		gamepad.getButtonState(GamepadButton::A),
+		gamepad.getButtonState(GamepadButton::B),
+		gamepad.getButtonState(GamepadButton::X),
+		(gamepad.getZPos() - 32767) >> 11
 	);
 	mouse.mouseMove(
-		(gamepad.getXPos()-32767)/4096, 
-		(gamepad.getYPos()-32767)/4096, 
+		(gamepad.getXPos()-32767) >> 14, 
+		(gamepad.getYPos()-32767) >> 14, 
 		speed
 	);
-	speed = gamepad.getDPad() == 65535 ? speed : (gamepad.getDPad() / 9000 + 1);
+	speed = 2 + (gamepad.getButtonState(GamepadButton::LB) ? -1 : 0) + (gamepad.getButtonState(GamepadButton::RB) ? 3 : 0);
+	return 0;
+}
+int keyboardStep() {
+	// int dirCode = xyToDir(gamepad.getRes1(), gamepad.getRes2());
+	// std::cout << gamepad.getRes1() << std::endl;
+
 	return 0;
 }
 
 int main(int argc, char* argv[]) {
-	std::future<int> th;
 	int timer = 1000 / FPS;
-	long tFirst, tNow;
-	tNow = tFirst = GetTickCount();
+	int tFirst, tNow;
+	tNow = tFirst = (int)GetTickCount64();
+	speed = 1;
+	dpad = 65535;
 	while (true) {
 		tFirst = tNow;
-		tNow = GetTickCount();
+		tNow = (int)GetTickCount64();
 		if (tNow - tFirst > 1000 / FPS) {
 			timer > 0 ? timer-- : false;
 		}
 		if (tNow - tFirst < 1000 / FPS) {
 			timer < 2000 / FPS ? timer++ : false;
 		}
-		th = std::async(step);
-		th.get();
+		gamepad.updateAllKey();
+		if (gamepad.getPadState()) {
+			mouseStep();
+			keyboardStep();
+		}
 		Sleep(timer);
 	}
 }

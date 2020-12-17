@@ -123,11 +123,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GamepadMapper.cpp" />
+    <ClCompile Include="KeyboardController.cpp" />
+    <ClCompile Include="MouseController.cpp" />
     <ClCompile Include="Program.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadMapper.h" />
     <ClInclude Include="GlobalConfig.h" />
+    <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="MouseController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

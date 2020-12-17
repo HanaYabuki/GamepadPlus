@@ -1,66 +1,34 @@
 #pragma once
 #include "GlobalConfig.h"
 
-#include <iostream>
-#include <Windows.h>
-
-#include<MMSystem.h>
-#pragma comment(lib, "Winmm.lib")
-
+enum class GamepadButton {
+	A, B, X, Y, LB, RB, Back, Start, L, R
+};
 
 class GamepadMapper {
 private:
-	IntVector3 PosInfo;
+	int XPos, YPos, ZPos, RPos, UPos, VPos;
+	int res1, res2;
 	unsigned int BtnInfo;
-	unsigned DPadInfo;
+	unsigned int DPadInfo;
+	bool padState;
 public:
-	GamepadMapper() {
-		PosInfo = { 0,0,0 };
-		BtnInfo = 0;
-	}
-	void updateAllKey() {
-		JOYINFOEX joyinfo;
-		joyinfo.dwSize = sizeof(JOYINFOEX);
-		joyinfo.dwFlags = JOY_RETURNALL;
-		if (joyGetNumDevs() >= 1) {
-			MMRESULT joyreturn = joyGetPosEx(JOYSTICKID1, &joyinfo);
-			if (joyreturn == JOYERR_NOERROR) {
-				PosInfo = { (int)joyinfo.dwXpos, (int)joyinfo.dwYpos, (int)joyinfo.dwZpos };
-				BtnInfo = (int)joyinfo.dwButtons;
-				DPadInfo = (int)joyinfo.dwPOV;
-			}
-		}
-	}
-	bool getButtonState(GamepadButton gb) {
-		switch (gb)
-		{
-		case A:
-			return BtnInfo & 1;
-		case B:
-			return (BtnInfo >> 1) & 1;
-		case X:
-			return (BtnInfo >> 2) & 1;
-		case Y:
-			return (BtnInfo >> 3) & 1;
-		case L:
-			return (BtnInfo >> 8) & 1;
-		case R:
-			return (BtnInfo >> 9) & 1;
-		case LB:
-			return (BtnInfo >> 4) & 1;
-		case RB:
-			return (BtnInfo >> 5) & 1;
-		case Start:
-			return (BtnInfo >> 7) & 1;
-		case Back:
-			return (BtnInfo >> 6) & 1;
-		default:
-			return 0;
-		}
-		return 0;
-	}
+	GamepadMapper();
+	void updateAllKey();
+
+	bool getPadState() { return padState; }
+	bool getButtonState(GamepadButton gb);
+	
 	int getDPad() { return DPadInfo; }
-	int getXPos() { return PosInfo.vx; }
-	int getYPos() { return PosInfo.vy; }
-	int getZPos() { return PosInfo.vz; }
+
+	int getXPos() { return XPos; }
+	int getYPos() { return YPos; }
+	int getZPos() { return ZPos; }
+
+	int getRPos() { return RPos; }
+	int getUPos() { return UPos; }
+	int getVPos() { return VPos; }
+
+	int getRes1() { return res1; }
+	int getRes2() { return res2; }
 };
