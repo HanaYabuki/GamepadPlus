@@ -1,7 +1,6 @@
 #include "widget.h"
 
 #include "globalconfig.h"
-#include <QDebug.h>
 #include <QPainter>
 #include <cmath>
 
@@ -266,6 +265,40 @@ int Widget::keyboardStep()
     }
 
     // Reset
+    if(state != 0) {
+        switch (state) {
+        case 4:{
+            if(!Gamepad.getDPad(GamepadDpadEX::left)) {
+                Keyboard.keyboardPress(keyDirection/40 % 26 + 'A');
+                state = 0;
+            }
+            break;
+        }
+        case 2:{
+            if(!Gamepad.getDPad(GamepadDpadEX::down)) {
+                Keyboard.keyboardPress(DOWN_KEY_CODE[keyDirection/80 % 4]);
+                state = 0;
+            }
+            break;
+        }
+        case 6:{
+            if(!Gamepad.getDPad(GamepadDpadEX::right)) {
+                Keyboard.keyboardPress(RIGHT_KEY_CODE[keyDirection/40 % 15]);
+                state = 0;
+            }
+            break;
+        }
+        case 8:{
+            if(!Gamepad.getDPad(GamepadDpadEX::up)) {
+                Keyboard.keyboardPress(UP_KEY_CODE[keyDirection/60 % 8]);
+                state = 0;
+            }
+            break;
+        }
+        }
+    }
+
+    return 0;
 }
 
 int Widget::xyToDirection(int x, int y)
