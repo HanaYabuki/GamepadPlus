@@ -1,0 +1,4 @@
+build-*
+*.pro
+*.pro.user
+*.lib
