@@ -49,7 +49,7 @@ void MouseController::mouseMove(float aim_x, float aim_y, float speed)
 	SetCursorPos((int)CursorPos_x, (int)CursorPos_y);
 }
 
-void MouseController::mouseClick(bool mb_left, bool mb_right, bool mb_middle, int mb_middleUpDown)
+void MouseController::mouseClick(bool mb_left, bool mb_right, bool mb_middle)
 {
 	if (mb_left != MbLeft) {
 		mouse_event(mb_left ? MOUSEEVENTF_LEFTDOWN : MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
@@ -63,6 +63,10 @@ void MouseController::mouseClick(bool mb_left, bool mb_right, bool mb_middle, in
 		mouse_event(mb_middle ? MOUSEEVENTF_MIDDLEDOWN : MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
 		MbMiddle = mb_middle;
 	}
+}
+
+void MouseController::mouseRoll(int mb_middleUpDown)
+{
 	if (mb_middleUpDown != 0) {
 		INPUT input;
 		input.type = INPUT_MOUSE;

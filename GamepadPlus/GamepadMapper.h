@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GAMEPAD_MAPPER_H
+#define GAMEPAD_MAPPER_H
+
 #include "GlobalConfig.h"
 
 enum class GamepadButton {
@@ -33,3 +35,5 @@ public:
 	int getRes1() { return res1; }
 	int getRes2() { return res2; }
 };
+
+#endif

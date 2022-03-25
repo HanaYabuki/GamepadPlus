@@ -124,12 +124,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GamepadMapper.cpp" />
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="MouseController.cpp" />
     <ClCompile Include="Program.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadMapper.h" />
     <ClInclude Include="GlobalConfig.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="MouseController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
